@@ -1,0 +1,187 @@
+body {
+    padding-top: 100px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* This sets the background to a soft gray */
+}
+
+.top-bar {
+    background-color: black;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Makes the top bar fixed */
+    width: 100%; /* Ensure it spans the full width */
+    top: 0; /* Anchor it to the top */
+    left: 0; /* Anchor it to the left */
+    z-index: 10; /* To ensure it appears above all other content */
+    box-sizing: border-box;
+}
+
+.signout {
+    background-color: red;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto 20px; /* Adjusted the top margin to account for the top-bar */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.box {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    width: 300px; /* default width for the boxes */
+    height: 300px; /* default height for the boxes */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+}
+/* Reset default styles for all anchor tags */
+
+
+.box img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.box p {
+    font-size: 20px; /* Adjust this value to your preference */
+    z-index: 2;
+    position: relative;
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Login Page Styles */
+.login-container {
+    height: 50vh;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 320px; /* Increased width slightly */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 50px; /* Offset to account for the top-bar */
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Added to fix the alignment issue */
+}
+
+.back-button {
+    background-color: gray;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-btn:hover {
+    background-color: #333;
+}
+
+/* Home Page Styles */
+.home-image {
+    width: 100%;
+    height: 100vh; /* Making it cover the viewport height */
+    background: url('homepage.jpeg') center/cover no-repeat; /* Adjust image location if different */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -60px; /* Adjust this value based on your top-bar height to make image go under the top-bar */
+    position: relative;
+    z-index: -1;
+}
+
+.section-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.section-content {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.login-button {
+    background-color: gray;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
