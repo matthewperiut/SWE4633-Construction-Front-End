@@ -185,3 +185,28 @@ a {
     text-decoration: none;
     font-size: 14px;
 }
+
+
+
+
+.table-style{
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ccc;
+}
+    th {
+        background-color: white;
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
+    td {
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+    tr:nth-child(odd) {
+        background-color: #cccccc
+    }
+
