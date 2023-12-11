@@ -1,117 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Employee Homepage</title>
-    <script>
-      async function fetchTokens(code) {
-  try {
-    const response = await fetch(`/get-user?code=${code}`);
-    const data = await response.json();
-    if (data.idToken) {
-      // Store the ID token in session storage
-      sessionStorage.setItem('idToken', data.idToken);
-      return data.idToken;
-    }
-    return null;
-  } catch (error) {
-    console.error('Error fetching tokens', error);
-    return null;
-  }
-}
-
-function decodeIdToken(idToken) {
-  const payload = JSON.parse(atob(idToken.split('.')[1]));
-  return payload;
-}
-
-async function displayUsername() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const code = urlParams.get('code');
-  const storedIdToken = sessionStorage.getItem('idToken');
-
-  if (storedIdToken) {
-    // Decode the ID token to get user info
-    const userInfo = decodeIdToken(storedIdToken);
-    document.getElementById('greeting').textContent = `Hello ${userInfo['cognito:username']}`;
-  } else if (code) {
-    // Fetch and store the ID token
-    const idToken = await fetchTokens(code);
-    if (idToken) {
-      // Decode the ID token to get user info
-      const userInfo = decodeIdToken(idToken);
-      document.getElementById('greeting').textContent = `Hello ${userInfo['cognito:username']}`;
-    }
-  }
-}
-
-// Run on page load and page focus
-document.addEventListener("DOMContentLoaded", displayUsername);
-window.addEventListener("focus", displayUsername);
-
-    </script>
     <style>
-      /* Style for the greeting area */
-      .greeting-area {
-        text-align: center;
-        padding: 20px;
-        background-color: #f2f2f2; /* Example background color */
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
+        .greeting-area {
+            text-align: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #editPreferencesButton {
+            background-color: gray;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #preferencesModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preferences-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
     <div class="top-bar">
-      <a href="index.html">Construction Connect</a>
-      <a href="index.html" class="signout">Sign Out</a>
+        <a href="index.html">Construction Connect</a>
+        <button id="editPreferencesButton">Edit Job Site Preferences</button>
+        <a href="index.html" class="signout">Sign Out</a>
     </div>
 
     <div class="content">
-      <a href="pay.html">
-        <div class="box">
-          <p>PAY</p>
-          <img src="images/0.avif" alt="Image 1" />
-        </div>
-      </a>
-      <a href="jobsite-1.html">
-        <div class="box">
-          <p>JOB SITE #1</p>
-          <img src="images/1.jpeg" alt="Image 1" />
-          <p>LOCATION</p>
-          <p>INFO</p>
-        </div>
-      </a>
-      <a href="jobsite-2.html">
-        <div class="box">
-          <p>JOB SITE #2</p>
-          <img src="images/2.webp" alt="Image 2" />
-          <p>LOCATION</p>
-          <p>INFO</p>
-        </div>
-      </a>
-      <a href="jobsite-3.html">
-        <div class="box">
-          <p>JOB SITE #3</p>
-          <img src="images/3.jpeg" alt="Image 3" />
-          <p>LOCATION</p>
-          <p>INFO</p>
-        </div>
-      </a>
-      <a href="JobSearch.html">
-        <div class="box">
-          <p>JOB SEARCH</p>
-          <img src="images/4.jpg" alt="Image 4" />
-        </div>
-      </a>
+        <!-- Content boxes with links and images -->
+        <a href="pay.html">
+            <div class="box">
+                <p>PAY</p>
+                <img src="images/0.avif" alt="Image 1" />
+            </div>
+        </a>
+        <a href="jobsite-1.html" id="jobSiteLink1">
+            <div class="box">
+                <p>JOB SITE #1</p>
+                <img src="images/1.jpeg" alt="Image 1" />
+                <p>LOCATION</p>
+                <p>INFO</p>
+            </div>
+        </a>
+        <a href="jobsite-2.html" id="jobSiteLink2">
+            <div class="box">
+                <p>JOB SITE #2</p>
+                <img src="images/2.webp" alt="Image 2" />
+                <p>LOCATION</p>
+                <p>INFO</p>
+            </div>
+        </a>
+        <a href="jobsite-3.html" id="jobSiteLink3">
+            <div class="box">
+                <p>JOB SITE #3</p>
+                <img src="images/3.jpeg" alt="Image 3" />
+                <p>LOCATION</p>
+                <p>INFO</p>
+            </div>
+        </a>
+        <a href="JobSearch.html">
+            <div class="box">
+                <p>JOB SEARCH</p>
+                <img src="images/4.jpg" alt="Image 4" />
+            </div>
+        </a>
     </div>
 
-    <!-- Greeting area at the bottom of the page -->
     <div class="greeting-area" id="greeting">
-      Hello!
+        Hello!
     </div>
+    
+    <div id="preferencesModal" style="display: none">
+        <div class="preferences-content">
+            <input type="checkbox" id="jobSite1" name="jobSite1"> Job Site 1<br>
+            <input type="checkbox" id="jobSite2" name="jobSite2"> Job Site 2<br>
+            <input type="checkbox" id="jobSite3" name="jobSite3"> Job Site 3<br>
+            <button id="savePreferencesButton">Save Preferences</button>
+        </div>
+    </div>
+
+    <script>
+        async function fetchTokens(code) {
+            try {
+                const response = await fetch(`/get-user?code=${code}`);
+                const data = await response.json();
+                if (data.idToken) {
+                    sessionStorage.setItem('idToken', data.idToken);
+                    return data.idToken;
+                }
+                return null;
+            } catch (error) {
+                console.error('Error fetching tokens', error);
+                return null;
+            }
+        }
+
+        function decodeIdToken(idToken) {
+            const payload = JSON.parse(atob(idToken.split('.')[1]));
+            return payload;
+        }
+
+        async function displayUsername() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const storedIdToken = sessionStorage.getItem('idToken');
+
+            if (storedIdToken) {
+                const userInfo = decodeIdToken(storedIdToken);
+                document.getElementById('greeting').textContent = `Hello ${userInfo['cognito:username']}`;
+            } else if (code) {
+                const idToken = await fetchTokens(code);
+                if (idToken) {
+                    const userInfo = decodeIdToken(idToken);
+                    document.getElementById('greeting').textContent = `Hello ${userInfo['cognito:username']}`;
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", displayUsername);
+        window.addEventListener("focus", displayUsername);
+
+        document.getElementById('editPreferencesButton').addEventListener('click', function() {
+            var modal = document.getElementById('preferencesModal');
+            modal.style.display = 'flex';
+        });
+
+        document.getElementById('savePreferencesButton').addEventListener('click', function() {
+            var modal = document.getElementById('preferencesModal');
+            modal.style.display = 'none';
+            document.getElementById('jobSiteLink1').style.display = document.getElementById('jobSite1').checked ? 'block' : 'none';
+            document.getElementById('jobSiteLink2').style.display = document.getElementById('jobSite2').checked ? 'block' : 'none';
+            document.getElementById('jobSiteLink3').style.display = document.getElementById('jobSite3').checked ? 'block' : 'none';
+        });
+
+        document.getElementById('preferencesModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        document.querySelector('.preferences-content').addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    </script>
 </body>
 </html>
