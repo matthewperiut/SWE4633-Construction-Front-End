@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Home Page</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const urlParams = new URLSearchParams(window.location.search);
+          const code = urlParams.get('code');
+      
+          if (code) {
+            document.querySelectorAll('a').forEach(link => {
+              const href = link.getAttribute('href');
+              if (href && href !== '#') {
+                link.setAttribute('href', href + '?code=' + code);
+              }
+            });
+          }
+        });
+      </script>
 </head>
 
 <body>

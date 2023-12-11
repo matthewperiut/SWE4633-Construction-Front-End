@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Employee Homepage</title>
+    <script>
+      async function fetchTokens(code) {
+  try {
+    const response = await fetch(`/get-user?code=${code}`);
+    const data = await response.json();
+    if (data.idToken) {
+      // Store the ID token in session storage
+      sessionStorage.setItem('idToken', data.idToken);
+      return data.idToken;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching tokens', error);
+    return null;
+  }
+}
+
+function decodeIdToken(idToken) {
+  const payload = JSON.parse(atob(idToken.split('.')[1]));
+  return payload;
+}
+
+async function displayUsername() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  const storedIdToken = sessionStorage.getItem('idToken');
+
+  if (storedIdToken) {
+    // Decode the ID token to get user info
+    const userInfo = decodeIdToken(storedIdToken);
+    document.getElementById('greeting').textContent = `Hello ${userInfo['cognito:username']}`;
+  } else if (code) {
+    // Fetch and store the ID token
+    const idToken = await fetchTokens(code);
+    if (idToken) {
+      // Decode the ID token to get user info
+      const userInfo = decodeIdToken(idToken);
+      document.getElementById('greeting').textContent = `Hello ${userInfo['cognito:username']}`;
+    }
+  }
+}
+
+// Run on page load and page focus
+document.addEventListener("DOMContentLoaded", displayUsername);
+window.addEventListener("focus", displayUsername);
+
+    </script>
+    <style>
+      /* Style for the greeting area */
+      .greeting-area {
+        text-align: center;
+        padding: 20px;
+        background-color: #f2f2f2; /* Example background color */
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+      <a href="index.html">Construction Connect</a>
+      <a href="index.html" class="signout">Sign Out</a>
+    </div>
+
+    <div class="content">
+      <a href="pay.html">
+        <div class="box">
+          <p>PAY</p>
+          <img src="images/0.avif" alt="Image 1" />
+        </div>
+      </a>
+      <a href="jobsite-1.html">
+        <div class="box">
+          <p>JOB SITE #1</p>
+          <img src="images/1.jpeg" alt="Image 1" />
+          <p>LOCATION</p>
+          <p>INFO</p>
+        </div>
+      </a>
+      <a href="jobsite-2.html">
+        <div class="box">
+          <p>JOB SITE #2</p>
+          <img src="images/2.webp" alt="Image 2" />
+          <p>LOCATION</p>
+          <p>INFO</p>
+        </div>
+      </a>
+      <a href="jobsite-3.html">
+        <div class="box">
+          <p>JOB SITE #3</p>
+          <img src="images/3.jpeg" alt="Image 3" />
+          <p>LOCATION</p>
+          <p>INFO</p>
+        </div>
+      </a>
+      <a href="JobSearch.html">
+        <div class="box">
+          <p>JOB SEARCH</p>
+          <img src="images/4.jpg" alt="Image 4" />
+        </div>
+      </a>
+    </div>
+
+    <!-- Greeting area at the bottom of the page -->
+    <div class="greeting-area" id="greeting">
+      Hello!
+    </div>
+</body>
+</html>

@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <title>Jobsite</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+    
+        if (code) {
+          document.querySelectorAll('a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href !== '#') {
+              link.setAttribute('href', href + '?code=' + code);
+            }
+          });
+        }
+      });
+    </script>
   </head>
 
   <body>
@@ -27,9 +42,9 @@
               <th>Street</th>
             </tr>
             <tr>
-              <td>South Carolina</td>
-              <td>Greer</td>
-              <td>2756 Brown Avenue</td>
+              <td>North Carolina</td>
+              <td>Raleigh</td>
+              <td>3575 Stratford Court</td>
             </tr>
         </table>
         <!--_Personnel:-->
@@ -41,52 +56,52 @@
             <th>Department</th>
           </tr>
           <tr>
-            <td>Erin Strickland</td> <!-- Name -->
+            <td>Libbie Johnson</td> <!-- Name -->
             <td>General Labor</td><!-- Title -->
             <td>Labor</td><!-- Department -->
           </tr>
           <tr>
-            <td>Haroon Weeks</td>
+            <td>Maariyah Brandt</td>
             <td>Project Manager</td>
             <td>Management</td> 
           </tr>
           <tr>
-            <td>Olive Suarez</td>
+            <td>Fahad Atkinson</td>
             <td>Electrician</td>
             <td>Labor</td>
           </tr>
           <tr>
-            <td>Jon Vasquez</td>
-            <td>Electrician</td>
-            <td>Labor</td>
-          </tr>
-          <tr>
-            <td>Laura Cantrell</td>
-            <td>Electrician</td>
-            <td>Labor</td>
-          </tr>
-          <tr>
-            <td>Monty Lam</td>
-            <td>Electrician</td>
-            <td>Labor</td>
-          </tr>
-          <tr>
-            <td>Yousef Kent</td>
+            <td>Luqman Harrison</td>
             <td>Plumber</td>
             <td>Labor</td>
           </tr>
           <tr>
-            <td>Hazel Sandoval</td>
+            <td>Ibraheem Hayden</td>
             <td>Operator</td>
             <td>Heavy Equipment</td>
           </tr>
           <tr>
-            <td>Fannie Moyer</td>
+            <td>Marco Osborne</td>
             <td>Operator</td>
             <td>Heavy Equipment</td>
           </tr>
           <tr>
-            <td>Fannie Moyer</td>
+            <td>Anton Ellis</td>
+            <td>General Labor</td>
+            <td>Labor</td>
+          </tr>
+          <tr>
+            <td>Wayne Snyder</td>
+            <td>Framer</td>
+            <td>Labor</td>
+          </tr>
+          <tr>
+            <td>Susie Chang</td>
+            <td>General Labor</td>
+            <td>Labor</td>
+          </tr>
+          <tr>
+            <td>Aarav Davies</td>
             <td>General Labor</td>
             <td>Labor</td>
           </tr>
@@ -97,10 +112,10 @@
             <td>CAT Grader 120 GC Tier 4 / Stage 5</td> <!-- Name -->
           </tr>
           <tr>
-            <td>CAT Material Handler MH3250</td> <!-- Name -->
+            <td>CAT Side Shift Backhoe 428</td> <!-- Name -->
           </tr>
           <tr>
-            <td>CAT Backhoe 415 IL</td> <!-- Name -->
+            <td>CAT Backhoe 420 XE</td> <!-- Name -->
           </tr>
         </table>
       </div>
